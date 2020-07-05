@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSD : {{world.name|capitalize}}</title>
+    <link rel="stylesheet" href="/static/css/skeleton.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body id="title">
+    <h1>Terraria Server Dashboard</h1>
+
+    <!-- Server Infos-->
+    <div class="infodiv" id="serverInfos">
+        <h3>Server Infos</h3>
+        <p>Server has been started on the {{uptime.bootDate|replace(" "," at ")}}</p>
+        <p>Server has been up for {{uptime.elapsedTime}}</p>
+    </div>
+
+    <!-- Player Infos-->
+    <div class="infodiv" id="playerInfos">
+        <h3>Player Infos</h3>
+        {% if players|length != 0  %}
+            <p>{{players|length}} {% if players|length == 1 %} player {% else %} players {% endif %} connected</h4>
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Health</th>
+                        <th>Mana</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in players%}
+                        <tr>
+                            <td>{{player.name}}</td>
+                            <td>{{player.health}}</td>
+                            <td>{{player.mana}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No players connected</h4>
+        {% endif %}
+    </div>
+    <div class="infodiv">
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mod in mods %}
+                    <tr>
+                        <th>{{mod}}</th>
+                        <th>mod</th>
+                        <th><a class="modlink" href="https://mirror.sgkoi.dev/Mods/Details/{{mod}}"><i class="material-icons">public</i></a></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
